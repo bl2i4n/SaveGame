@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   resources :bookmarks
-  resources :topics
+  resources :topics 
 
   devise_for :users
 

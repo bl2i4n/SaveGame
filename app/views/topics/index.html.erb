@@ -3,3 +3,6 @@
 <%= @topics.each do |topic| %>
   <p><%= link_to topic.title, topic %></p>
 <% end %>
+<br />
+<br />
+<%= link_to 'New Topic', new_topic_path %>
