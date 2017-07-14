@@ -1,6 +1,6 @@
 class BookmarksController < ApplicationController
   before_action :set_topic
-  # before_action :set_bookmark, only: [:show, :edit, :update, :destroy]
+  before_action :set_bookmark, only: [:show, :edit, :update, :destroy]
 
   # GET /bookmarks
   # GET /bookmarks.json
@@ -12,32 +12,28 @@ class BookmarksController < ApplicationController
   # GET /bookmarks/1
   # GET /bookmarks/1.json
   def show
-    @bookmark = Bookmark.find(params[:id])
     render :show
   end
 
   # GET /bookmarks/new
   def new
-    @topic = Topic.find(params[:topic_id])
     @bookmark = Bookmark.new
     render :new
   end
 
   # GET /bookmarks/1/edit
   def edit
-    @bookmark = Bookmark.find(params[:id])
     render :edit
   end
 
   # POST /bookmarks
   # POST /bookmarks.json
   def create
-    @topic = Topic.find(params[:topic_id])
-    @bookmark = @topic.bookmarks.build(url: params[:bookmark][:url])
+    @bookmark = @topic.bookmarks.new(bookmark_params)
 
     respond_to do |format|
       if @bookmark.save
-        format.html { redirect_to @bookmark, notice: 'Bookmark was successfully created.' }
+        format.html { redirect_to [@topic, @bookmark], notice: 'Bookmark was successfully created.' }
         format.json { render :show, status: :created, location: @bookmark }
       else
         format.html { render :new }
@@ -49,12 +45,9 @@ class BookmarksController < ApplicationController
   # PATCH/PUT /bookmarks/1
   # PATCH/PUT /bookmarks/1.json
   def update
-    @bookmark = Bookmark.find(params[:id])
-    @bookmark.url = params[:bookmark][:url]
-
     respond_to do |format|
-      if @bookmark.update(bookmark_params)
-        format.html { redirect_to @bookmark, notice: 'Bookmark was successfully updated.' }
+      if @bookmark.update_attributes(bookmark_params)
+        format.html { redirect_to [@topic, @bookmark], notice: 'Bookmark was successfully updated.' }
         format.json { render :show, status: :ok, location: @bookmark }
       else
         format.html { render :edit }
@@ -66,12 +59,9 @@ class BookmarksController < ApplicationController
   # DELETE /bookmarks/1
   # DELETE /bookmarks/1.json
   def destroy
-    @bookmark = Bookmark.find(params[:id])
-    @topic = Topic.find_by id: @bookmark.topic_id
-
     @bookmark.destroy
     respond_to do |format|
-      format.html { redirect_to bookmarks_url, notice: 'Bookmark was successfully destroyed.' }
+      format.html { redirect_to topic_bookmarks_path(@topic), notice: 'Bookmark was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -84,7 +74,7 @@ class BookmarksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def bookmark_params
-      params.require(:bookmark).permit(:url, :topic_id)
+      params.require(:bookmark).permit(:url)
     end
 
     def set_topic

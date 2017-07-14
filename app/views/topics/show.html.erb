@@ -11,3 +11,11 @@
 
    </div>
  </div>
+
+<div class="bookmarks">
+  <% @topic.bookmarks.each do |bookmark| %>
+    <div class="row">
+      <%= link_to bookmark.url, bookmark.url, target: "_blank" %>
+    </div>
+  <% end %>
+</div>

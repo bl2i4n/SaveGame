@@ -4,8 +4,6 @@ Rails.application.routes.draw do
     resources :bookmarks, except: [:index]
   end
 
-  resources :bookmarks
-
   devise_for :users
 
   resources :users, only: [:show]
