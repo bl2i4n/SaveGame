@@ -19,6 +19,8 @@
   <% @topic.bookmarks.each do |bookmark| %>
     <div class="row">
       <%= link_to bookmark.url, bookmark.url, target: "_blank" %>
+      <%= link_to 'Edit Bookmark', edit_topic_bookmark_path(@topic, bookmark), class: 'btn btn-info' %>
+
     </div>
   <% end %>
 </div>

@@ -1,4 +1,5 @@
 class BookmarksController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_topic
   before_action :set_bookmark, only: [:show, :edit, :update, :destroy]
 
