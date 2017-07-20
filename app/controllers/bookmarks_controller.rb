@@ -1,4 +1,5 @@
 class BookmarksController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_topic
   before_action :set_bookmark, only: [:show, :edit, :update, :destroy]
 
@@ -12,17 +13,20 @@ class BookmarksController < ApplicationController
   # GET /bookmarks/1
   # GET /bookmarks/1.json
   def show
+    authorize @bookmark  # user, object, controller action
     render :show
   end
 
   # GET /bookmarks/new
   def new
     @bookmark = Bookmark.new
+    authorize @bookmark
     render :new
   end
 
   # GET /bookmarks/1/edit
   def edit
+    authorize @bookmark
     render :edit
   end
 
@@ -30,6 +34,7 @@ class BookmarksController < ApplicationController
   # POST /bookmarks.json
   def create
     @bookmark = @topic.bookmarks.new(bookmark_params)
+    authorize @bookmark
 
     respond_to do |format|
       if @bookmark.save
@@ -45,6 +50,7 @@ class BookmarksController < ApplicationController
   # PATCH/PUT /bookmarks/1
   # PATCH/PUT /bookmarks/1.json
   def update
+    authorize @bookmark
     respond_to do |format|
       if @bookmark.update_attributes(bookmark_params)
         format.html { redirect_to [@topic, @bookmark], notice: 'Bookmark was successfully updated.' }
@@ -59,6 +65,7 @@ class BookmarksController < ApplicationController
   # DELETE /bookmarks/1
   # DELETE /bookmarks/1.json
   def destroy
+    authorize @bookmark
     @bookmark.destroy
     respond_to do |format|
       format.html { redirect_to topic_bookmarks_path(@topic), notice: 'Bookmark was successfully destroyed.' }
