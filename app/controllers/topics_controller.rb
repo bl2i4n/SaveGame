@@ -10,12 +10,10 @@ class TopicsController < ApplicationController
   end
 
   def new
-    authorize @topic
     @topic = Topic.new
   end
 
   def create
-    authorize @topic
     @topic = Topic.new
     @topic.title = params[:topic][:title]
 
