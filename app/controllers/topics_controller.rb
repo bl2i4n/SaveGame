@@ -5,7 +5,6 @@ class TopicsController < ApplicationController
   end
 
   def show
-    authorize @topic
     @topic = Topic.find(params[:id])
   end
 
@@ -27,12 +26,10 @@ class TopicsController < ApplicationController
   end
 
   def edit
-    authorize @topic
     @topic = Topic.find(params[:id])
   end
 
   def update
-    authorize @topic
     @topic = Topic.find(params[:id])
     @topic.title = params[:topic][:title]
 
@@ -46,7 +43,6 @@ class TopicsController < ApplicationController
   end
 
   def destroy
-    authorize @topic
     @topic = Topic.find(params[:id])
 
     if @topic.destroy
