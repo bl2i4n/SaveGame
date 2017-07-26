@@ -12,3 +12,5 @@
 
 <%= link_to 'Edit', edit_topic_bookmark_path(@topic, @bookmark) %> |
 <%= link_to 'Back', topics_path %>
+
+<%= render partial: 'likes/like', locals: { bookmark: @bookmark } %>
