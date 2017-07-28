@@ -1,5 +1,5 @@
 class LikesController < ApplicationController
-  before_action :authenticate_user
+  before_action :authenticate_user!
 
   def index
   end
@@ -13,7 +13,7 @@ class LikesController < ApplicationController
     else
       flash[:alert] = "Like failed"
     end
-    redirect_to [topic.bookmark. bookmark]
+    redirect_to @bookmark.topic
   end
 
   def destroy
@@ -29,7 +29,7 @@ class LikesController < ApplicationController
       # Flash error and redirect to @bookmark
       flash[:alert] = "Unfavoriting failed."
     end
-      redirect_to [topic.bookmark. bookmark]
+      redirect_to @bookmark.topic
   end
 
 end
