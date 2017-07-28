@@ -1,2 +1,12 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<h3>My Bookmarks</h3>
+
+<div class "row">
+  <%= render @topics %>
+</div>
+
+<hr />
+
+<h2>My Likes</h2>
+<div class="row">
+  <%= render @liked_bookmarks %>
+</div>
