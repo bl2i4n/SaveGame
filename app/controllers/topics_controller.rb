@@ -1,7 +1,6 @@
 class TopicsController < ApplicationController
-  before_action :authenticate_user!
   def index
-    @topics = Topic.all
+    @topics = current_user.topics.all
   end
 
   def show
@@ -15,12 +14,12 @@ class TopicsController < ApplicationController
   def create
     @topic = Topic.new
     @topic.title = params[:topic][:title]
+    @topic.user = current_user
 
     if @topic.save
-      flash[:notice] = "Topic was saved."
-      redirect_to @topic
+      redirect_to @topic, notice: "Topic was saved successfully."
     else
-      flash.now[:alert] = "There was an error saving the topic. Please try again."
+      flash.now[:alert] = "Error creating topic. Please try again."
       render :new
     end
   end
@@ -31,13 +30,14 @@ class TopicsController < ApplicationController
 
   def update
     @topic = Topic.find(params[:id])
+
     @topic.title = params[:topic][:title]
 
     if @topic.save
       flash[:notice] = "Topic was updated."
       redirect_to @topic
     else
-      flash.now[:alert] = "There was an error saving the topic. Please try again."
+      flash.now[:alert] = "Error saving topic. Please try again."
       render :edit
     end
   end
@@ -47,28 +47,10 @@ class TopicsController < ApplicationController
 
     if @topic.destroy
       flash[:notice] = "\"#{@topic.title}\" was deleted successfully."
-      redirect_to topics_path
+      redirect_to action: :index
     else
-      flash.now[:alert] = "There was an error deleting the topic"
+      flash.now[:alert] = "There was an error deleting the topic."
       render :show
     end
-
   end
-
-  def destroy_bookmark
-     puts '==========================='
-     puts params
-     puts '========================================'
-     @bookmark = Bookmark.find(params[:id])
-
-     if @bookmark.destroy
-       flash[:notice] = "\"#{@bookmark.url}\" was deleted successfully."
-       redirect_to topic_path(params[:format])
-     else
-       flash.now[:alert] = "There was an error deleting the topic."
-       redirect_to topic_path(params[:format])
-     end
-
-    end
-
 end

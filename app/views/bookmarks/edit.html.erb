@@ -1,6 +1,28 @@
-<h1>Editing Bookmark</h1>
+<h1>Edit Bookmark</h1>
 
-<%= render 'form', bookmark: @bookmark %>
+<div class="row">
+  <div class="col-md-4">
+    <p>Guidelines for bookmarks:</p>
+    <ul>
+      <li>Make sure bookmark link is not broken.</li>
+      <li>Make sure a there are no duplicate bookmarks.</li>
+      <li>Have fun creating bookmarks.</li>
+    </ul>
+  </div>
 
-<%= link_to 'Show', [@topic, @bookmark] %> |
-<%= link_to 'Back', :back %>
+  <div class="col-md-8">
+    <%= form_for [@bookmark.topic, @bookmark] do |f| %>
+      <div class="form-group">
+        <%= f.label :url %>
+        <%= f.text_field :url, class: 'form-control', placeholder: "Enter bookmark url" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :description %>
+        <%= f.text_area :description, size: "10x10", class: 'form-control', placeholder: "Enter bookmark url" %>
+      </div>
+
+      <%= f.submit "Save", class: 'btn btn-success' %>
+    <% end %>
+  </div>
+</div>
