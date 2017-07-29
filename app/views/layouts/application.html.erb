@@ -12,9 +12,9 @@
       <div class="container">
       <div>
         <ul class="nav nav-tabs">
-          <li><%= link_to "About", root_path %></li>
+          <li><%= link_to "Home", root_path %></li>
         <% if user_signed_in? %>
-          <li class="pull-right user-info">Signed in as: <strong><%= current_user.email %></strong></li>
+          <li class="pull-right user-info" id="user">Signed in as: <strong><%= current_user.email %></strong></li>
           <li class="pull-right"><%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %></li>
           <li class="pull-right"><%= link_to "Sign Out", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %></li>
         <% else %>

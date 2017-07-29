@@ -12,3 +12,8 @@
   <h4><%= link_to bookmark.url, topic_bookmark_path(Topic.find(bookmark.topic_id), bookmark)%></h4>
   <%= render partial: 'likes/like', locals: {bookmark: bookmark} %>
 <% end %>
+
+<br />
+<h1 class="text-center">
+  <%= link_to 'View All Topics', topics_path, class: 'btn-lrg btn-primary' %>
+</h1>
