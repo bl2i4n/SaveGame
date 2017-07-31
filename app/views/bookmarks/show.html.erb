@@ -1,6 +1,8 @@
 <h1><%= @bookmark.url %></h1>
 <p class="lead"><%= @bookmark.description %></p>
 
+<%=link_to( @bookmark, @bookmark) %>
+
 <% if policy(@bookmark).update? %>
   <%= link_to "Edit Bookmark", edit_topic_bookmark_path(@bookmark.topic, @bookmark), class: 'btn btn-success' %>
 <% end %>
